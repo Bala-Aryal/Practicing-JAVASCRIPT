@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+ <head>
+ <title>Reaction tester</title>
+
+ <meta charset="utf-8" />
+ <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+
+ body {
+   font-family:Verdana, Geneva, sans-serif;
+ }
+
+#box {
+  width:200px;
+  height:200px;
+  background-color:red;
+  display:none;
+  position:relative;
+}
+
+#bold {
+  font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+  <h1>Test your reaction time!</h1>
+
+  <p>Simply press on the shapes as soon as they pop up!</p>
+
+  <p id="bold">Your time in seconds is <span id="time">0, because you havent played yet.</span></p>
+
+  <div id="box"></div>
+
+<script type="text/javascript">
+
+    function randomColor(){
+      var letters='0123456789ABCDEF'.split('');
+      var color= '#';
+      for (var i=0; i<6;i++){
+        color += letters[Math.round(Math.random()*15)];
+}
+  return color;
+}
+
+
+  var timeClicked; var timeCreated; var timeReacted;
+
+  function bigBox() {
+
+    var time=Math.random();
+    time=time*5000;
+
+    setTimeout(function() {
+      if (Math.random()>0.5){
+        document.getElementById("box").style.borderRadius="100px";
+      } else {
+        document.getElementById("box").style.borderRadius="0px";
+      }
+
+    var top=Math.random();
+    top=top*350;
+    var left=Math.random();
+    left=left*1000;
+      document.getElementById("box").style.top=top+"px";
+      document.getElementById("box").style.left=left+"px";
+      document.getElementById("box").style.backgroundColor=randomColor();
+      document.getElementById("box").style.display="block";
+      timeCreated=Date.now();
+    }, time);
+
+  }
+
+  document.getElementById("box").onclick=function(){
+    timeClicked=Date.now();
+    timeReacted=(timeClicked-timeCreated)/1000;
+    document.getElementById("time").innerHTML=timeReacted;
+    this.style.display="none";
+    bigBox();
+  }
+
+bigBox();
+
+</script>
+
+</body>
+</html>
